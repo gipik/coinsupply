@@ -65,31 +65,31 @@
             The diagram shows the <b>formal</b> coin supply over times <b>until reward is greater than 0.5 coins</b>.<br>
             <br>
             <b>Examples:</b><br>
-	    <ol>
-		<li> 
-		    Show a quick-supply currency that will reach the ~maximum coin supply of 99.2 coins in 23 seconds. Click <a href="javascript:void(0)" onclick="sbtc(3,1,50,'cur')">here</a> to show.
-		</li>
-		<br>
-		<li> 
-		    Show a quick-supply currency that will reach the ~maximum coin supply of 297.65 coins in 1 minute and 5 seconds. Click <a href="javascript:void(0)" onclick="sbtc(3,3,50,'cur')">here</a> to show.
-		</li>
-		<br>
-		<li>
-		    Show Bitcoin formal coin supply. Click <a href="javascript:void(0)" onclick="sbtc(600,210000,50,'btc')">here</a> to show.
-		</li>
-		<br>
-		<li>
-		    What would happen if Bitcoin block time was 5 minutes instead of 10 minutes ? Click <a href="javascript:void(0)" onclick="sbtc(300,210000,50,'btc')">here</a> to show.
-		</li>
-		<br>
-		<li>
-		    What would happen if Bitcoin difficulty increased every 315,000 blocks instead of 210,000 blocks ? Click <a href="javascript:void(0)" onclick="sbtc(600,315000,50,'btc')">here</a> to show.
-		</li>
-		<br>
-		<li>
-		    What would happen if Bitcoin inital reward was 25 coins instead of 50 coins ? Click <a href="javascript:void(0)" onclick="sbtc(600,210000,25,'btc')">here</a> to show.
-		</li>
-	    </ol>
+            <ol>
+                <li> 
+                    Show a quick-supply currency that will reach the ~maximum coin supply of 99.2 coins in 23 seconds. Click <a href="javascript:void(0)" onclick="sbtc(3,1,50,'cur')">here</a> to show.
+                </li>
+                <br>
+                <li> 
+                    Show a quick-supply currency that will reach the ~maximum coin supply of 297.65 coins in 1 minute and 5 seconds. Click <a href="javascript:void(0)" onclick="sbtc(3,3,50,'cur')">here</a> to show.
+                </li>
+                <br>
+                <li>
+                    Show Bitcoin formal coin supply. Click <a href="javascript:void(0)" onclick="sbtc(600,210000,50,'btc')">here</a> to show.
+                </li>
+                <br>
+                <li>
+                    What would happen if Bitcoin block time was 5 minutes instead of 10 minutes ? Click <a href="javascript:void(0)" onclick="sbtc(300,210000,50,'btc')">here</a> to show.
+                </li>
+                <br>
+                <li>
+                    What would happen if Bitcoin difficulty increased every 315,000 blocks instead of 210,000 blocks ? Click <a href="javascript:void(0)" onclick="sbtc(600,315000,50,'btc')">here</a> to show.
+                </li>
+                <br>
+                <li>
+                    What would happen if Bitcoin inital reward was 25 coins instead of 50 coins ? Click <a href="javascript:void(0)" onclick="sbtc(600,210000,25,'btc')">here</a> to show.
+                </li>
+            </ol>
             Results are <b>formal values</b>; they don't necessary match the values in the Bitcoin network, see <a target=_blank href=https://en.bitcoin.it/wiki/Controlled_supply#Currency_with_Finite_Supply>here</a> for more info.
         </td>
     </tr>
@@ -99,475 +99,475 @@
 <script type="text/javascript">
 
     function isNumeric(n) {
-	return !isNaN(parseFloat(n)) && isFinite(n);
+  return !isNaN(parseFloat(n)) && isFinite(n);
     }
 
     function hide_info() {
-	document.getElementById('show_id').innerHTML='<font face=arial size="-1"><a href="javascript:void(0)" onclick="show_info()">show info</a></font>';
-	document.getElementById('table_info').style.visibility='hidden';
+        document.getElementById('show_id').innerHTML='<font face=arial size="-1"><a href="javascript:void(0)" onclick="show_info()">show info</a></font>';
+        document.getElementById('table_info').style.visibility='hidden';
     }
 
     function show_info() {
-	document.getElementById('show_id').innerHTML='<font face=arial size="-1"><a href="javascript:void(0)" onclick="hide_info()">hide info</a></font>';
-	document.getElementById('table_info').style.visibility='visible';
+        document.getElementById('show_id').innerHTML='<font face=arial size="-1"><a href="javascript:void(0)" onclick="hide_info()">hide info</a></font>';
+        document.getElementById('table_info').style.visibility='visible';
     }
 
     function startcalc() {
-	if(!isNumeric(document.getElementById('block_time').value)) {
-	    document.getElementById('block_time').focus();
-	    document.getElementById('block_time').select();
-	    alert('Insert a numeric Block Time');
-	    return;
-	}
-	if(parseInt(document.getElementById('block_time').value)<3) {
-	    document.getElementById('block_time').focus();
-	    document.getElementById('block_time').select();
-	    alert('Minumum value for Block Time is 3');
-	    return;		        
-	}
-	if(!isNumeric(document.getElementById('block_inc').value)) {
-	    document.getElementById('block_inc').focus();
-	    document.getElementById('block_inc').select();
-	    alert('Insert a numeric value for Difficulty Increase');
-	    return;
-	}
-	if(parseInt(document.getElementById('block_inc').value)<1) {
-	    document.getElementById('block_inc').focus();
-	    document.getElementById('block_inc').select();
-	    alert('Minumum value for Difficulty Increase is 1');
-	    return;		        
-	}
-	if(!isNumeric(document.getElementById('init_reward').value)) {
-	    document.getElementById('init_reward').focus();
-	    document.getElementById('init_reward').select();
-	    alert('Insert a numeric value for Initial Reward');
-	    return;
-	}
-	if(parseInt(document.getElementById('init_reward').value)<1) {
-	    document.getElementById('init_reward').focus();
-	    document.getElementById('init_reward').select();
-	    alert('Minumum value for Initial Reward is 1');
-	    return;		        
-	}
-	BLOCK_INTERVAL_SECS=parseInt(document.getElementById('block_time').value);
-	CHANGE_DIFF_EVERY_BLOCK=parseInt(document.getElementById('block_inc').value);
-	AWARD_INIT=parseInt(document.getElementById('init_reward').value);
-	if(document.getElementById('boot_date').value == 'btc') {
-	    BLOCKCHAIN_START_TIME=1231006505;
-	}
-	else {
-	    var tsm = window.performance && window.performance.now && window.performance.timing && window.performance.timing.navigationStart ? window.performance.now()+window.performance.timing.navigationStart : Date.now();
-	    var cTS=tsm/1000;
-	    BLOCKCHAIN_START_TIME=cTS;
-	}
-	startLoop();
+        if(!isNumeric(document.getElementById('block_time').value)) {
+            document.getElementById('block_time').focus();
+            document.getElementById('block_time').select();
+            alert('Insert a numeric Block Time');
+            return;
+        }
+        if(parseInt(document.getElementById('block_time').value)<3) {
+            document.getElementById('block_time').focus();
+            document.getElementById('block_time').select();
+            alert('Minumum value for Block Time is 3');
+            return;                        
+        }
+        if(!isNumeric(document.getElementById('block_inc').value)) {
+            document.getElementById('block_inc').focus();
+            document.getElementById('block_inc').select();
+            alert('Insert a numeric value for Difficulty Increase');
+            return;
+        }
+        if(parseInt(document.getElementById('block_inc').value)<1) {
+            document.getElementById('block_inc').focus();
+            document.getElementById('block_inc').select();
+            alert('Minumum value for Difficulty Increase is 1');
+            return;                        
+        }
+        if(!isNumeric(document.getElementById('init_reward').value)) {
+            document.getElementById('init_reward').focus();
+            document.getElementById('init_reward').select();
+            alert('Insert a numeric value for Initial Reward');
+            return;
+        }
+        if(parseInt(document.getElementById('init_reward').value)<1) {
+            document.getElementById('init_reward').focus();
+            document.getElementById('init_reward').select();
+            alert('Minumum value for Initial Reward is 1');
+            return;                        
+        }
+        BLOCK_INTERVAL_SECS=parseInt(document.getElementById('block_time').value);
+        CHANGE_DIFF_EVERY_BLOCK=parseInt(document.getElementById('block_inc').value);
+        AWARD_INIT=parseInt(document.getElementById('init_reward').value);
+        if(document.getElementById('boot_date').value == 'btc') {
+            BLOCKCHAIN_START_TIME=1231006505;
+        }
+        else {
+            var tsm = window.performance && window.performance.now && window.performance.timing && window.performance.timing.navigationStart ? window.performance.now()+window.performance.timing.navigationStart : Date.now();
+            var cTS=tsm/1000;
+            BLOCKCHAIN_START_TIME=cTS;
+        }
+        startLoop();
     }
 
     function update_timer() {
-	if(BLOCKMAP_ARRAY.length==curBlock+1) {
-	    if(uTimer!=null) {
-		clearInterval(uTimer);
-	    }	    
-	    document.getElementById('next_time_div').innerHTML=' &nbsp; All coins are mined &nbsp; ';
-	    return;
-	}
-	var tStampInMs = window.performance && window.performance.now && window.performance.timing && window.performance.timing.navigationStart ? window.performance.now()+window.performance.timing.navigationStart : Date.now();
-	var curTStamp=tStampInMs/1000;
-	var s=numberWithCommas(parseInt(BLOCKMAP_ARRAY[curBlock+1].startAt-curTStamp));
-	if(s<0) {
-	    document.getElementById('next_time_div').innerHTML=' &nbsp; Updating Graph ...';
-	    draw_graph();
-	}
-	else {
-	    var newsize=parseInt(document.getElementById('next_time').clientWidth*(BLOCK_INTERVAL_SECS-s)/BLOCK_INTERVAL_SECS);
-	    if((newsize<0) || (newsize>CANVAS_WIDTH)){  // dirty fix
-		console.log('DEBUG:['+document.getElementById('next_time').clientWidth+']['+s+']['+newsize+']['+BLOCK_INTERVAL_SECS+']['+curBlock+']['+curTStamp+']');
-		document.getElementById('next_time_div').innerHTML='?';
-		document.getElementById('next_time_div').style.width='1px';
-		document.getElementById('next_time').style.width='1p%';
-	    }
-	    else{
-		document.getElementById('next_time_div').style.width=newsize+'px';
-		document.getElementById('next_time_div').innerHTML=' &nbsp; Next Block in: '+s+' seconds';
-	    }
-	}
+        if(BLOCKMAP_ARRAY.length==curBlock+1) {
+            if(uTimer!=null) {
+                clearInterval(uTimer);
+            }            
+            document.getElementById('next_time_div').innerHTML=' &nbsp; All coins are mined &nbsp; ';
+            return;
+        }
+        var tStampInMs = window.performance && window.performance.now && window.performance.timing && window.performance.timing.navigationStart ? window.performance.now()+window.performance.timing.navigationStart : Date.now();
+        var curTStamp=tStampInMs/1000;
+        var s=numberWithCommas(parseInt(BLOCKMAP_ARRAY[curBlock+1].startAt-curTStamp));
+        if(s<0) {
+            document.getElementById('next_time_div').innerHTML=' &nbsp; Updating Graph ...';
+            draw_graph();
+        }
+        else {
+            var newsize=parseInt(document.getElementById('next_time').clientWidth*(BLOCK_INTERVAL_SECS-s)/BLOCK_INTERVAL_SECS);
+            if((newsize<0) || (newsize>CANVAS_WIDTH)){  // dirty fix
+                console.log('DEBUG:['+document.getElementById('next_time').clientWidth+']['+s+']['+newsize+']['+BLOCK_INTERVAL_SECS+']['+curBlock+']['+curTStamp+']');
+                document.getElementById('next_time_div').innerHTML='?';
+                document.getElementById('next_time_div').style.width='1px';
+                document.getElementById('next_time').style.width='1p%';
+            }
+            else{
+                document.getElementById('next_time_div').style.width=newsize+'px';
+                document.getElementById('next_time_div').innerHTML=' &nbsp; Next Block in: '+s+' seconds';
+            }
+        }
     }
 
     function timeConverter(UNIX_timestamp,use_time){
-	var a = new Date(UNIX_timestamp*1000);
-	var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-	var year = a.getFullYear();
-	var month = months[a.getMonth()];
-	var date = a.getDate();
-	var hour = a.getHours();
-	if((hour+'').length==1) {
-	    hour='0'+hour;
-	}
-	var min = a.getMinutes();
-	if((min+'').length==1) {
-	    min='0'+min;
-	}
-	var sec = a.getSeconds();
-	if((sec+'').length==1) {
-	    sec='0'+sec;
-	}
-	if(use_time=='time') {
-	    var time = date+' '+month+' '+year+' '+hour+':'+min+':'+sec ;
-	}
-	else {
-	    var time = date+' '+month+' '+year ;
-	}
-	return time;
+        var a = new Date(UNIX_timestamp*1000);
+        var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        var year = a.getFullYear();
+        var month = months[a.getMonth()];
+        var date = a.getDate();
+        var hour = a.getHours();
+        if((hour+'').length==1) {
+            hour='0'+hour;
+        }
+        var min = a.getMinutes();
+        if((min+'').length==1) {
+            min='0'+min;
+        }
+        var sec = a.getSeconds();
+        if((sec+'').length==1) {
+            sec='0'+sec;
+        }
+        if(use_time=='time') {
+            var time = date+' '+month+' '+year+' '+hour+':'+min+':'+sec ;
+        }
+        else {
+            var time = date+' '+month+' '+year ;
+        }
+        return time;
     }
 
     function get_diff_number_from_block(blocknum) {
-	return(parseInt(parseFloat((parseInt(blocknum/CHANGE_DIFF_EVERY_BLOCK)*0.10471975511965977+'').substring(0,4)).toFixed(1).replace('.','')));
+        return(parseInt(parseFloat((parseInt(blocknum/CHANGE_DIFF_EVERY_BLOCK)*0.10471975511965977+'').substring(0,4)).toFixed(1).replace('.','')));
     }
 
     function get_award_for_block(blocknum) {
-	var BLOCK=blocknum
-	var AWARD=AWARD_INIT
-	var N=get_diff_number_from_block(BLOCK);
-	var i=0;
-	for(i=0;i<N;i++) {
-	    AWARD=AWARD/2;
-	}
-	return(AWARD);
+        var BLOCK=blocknum
+        var AWARD=AWARD_INIT
+        var N=get_diff_number_from_block(BLOCK);
+        var i=0;
+        for(i=0;i<N;i++) {
+            AWARD=AWARD/2;
+        }
+        return(AWARD);
     }
 
     function get_difficulty_for_block(blocknum) {
-	var BLOCK=blocknum
-	var DIFFICULTY=""
-	var i=0;
-	var DIFF=get_diff_number_from_block(BLOCK);
-	for(i=0;i<DIFF;i++) {
-	    DIFFICULTY=DIFFICULTY+'0';
-	}
-	return(DIFFICULTY);
+        var BLOCK=blocknum
+        var DIFFICULTY=""
+        var i=0;
+        var DIFF=get_diff_number_from_block(BLOCK);
+        for(i=0;i<DIFF;i++) {
+            DIFFICULTY=DIFFICULTY+'0';
+        }
+        return(DIFFICULTY);
     }
 
     function block_obj() {
-	this.block_num=-1;
-	this.difficulty=-1;
-	this.award=-1;
-	this.total_coins=-1;
-	this.startAt=-1;
+        this.block_num=-1;
+        this.difficulty=-1;
+        this.award=-1;
+        this.total_coins=-1;
+        this.startAt=-1;
     }
 
     const numberWithCommas = (x) => {
-	if(x.toString().indexOf('.') !== -1) {
-	    var int=x.toString().split('.')[0];
-	    var dec=x.toString().split('.')[1];
-	    return int.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",")+'.'+dec;
-	}
-	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
+        if(x.toString().indexOf('.') !== -1) {
+            var int=x.toString().split('.')[0];
+            var dec=x.toString().split('.')[1];
+            return int.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",")+'.'+dec;
+        }
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
     }
 
     function getBlockForCoinNum(CoinNum) {
-	var ret=0;
-	for(var i=0;i<BLOCKMAP_ARRAY.length;i++) {
-	    if(BLOCKMAP_ARRAY[i].total_coins > CoinNum) {
-		return(ret);
-	    }
-	    ret=i;
-	}
-	return(ret);
+        var ret=0;
+        for(var i=0;i<BLOCKMAP_ARRAY.length;i++) {
+            if(BLOCKMAP_ARRAY[i].total_coins > CoinNum) {
+                return(ret);
+            }
+            ret=i;
+        }
+        return(ret);
     }
 
     function buildBlockMap() {
-	var TOTAL_COINS_NUMBER=0;
-	var i=0;
-	var AWARD_MEM=AWARD_INIT;
-	BLOCKMAP_ARRAY=new Array();
-	while(1) {
-	    var DIFFICULTY=get_difficulty_for_block(i);
-	    var AWARD=get_award_for_block(i);
-	    if (AWARD < AWARD_MEM) {
-		AWARD_MEM=AWARD
-	    }
-	    BLOCKMAP_ARRAY[i]=new block_obj();
-	    BLOCKMAP_ARRAY[i].block_num=i
-	    BLOCKMAP_ARRAY[i].difficulty=DIFFICULTY;
-	    BLOCKMAP_ARRAY[i].award=AWARD;
-	    BLOCKMAP_ARRAY[i].total_coins=TOTAL_COINS_NUMBER;
-	    BLOCKMAP_ARRAY[i].startAt=TIME_CNT;
-	    TOTAL_COINS_NUMBER+=AWARD
-	    TIME_CNT=TIME_CNT+BLOCK_INTERVAL_SECS;
-	    if ((curBlock==-1) && (TIME_CNT > curTimeStamp)) {
-		curBlock=i;
-	    }
-	    if(AWARD<MINIMUM_AWARD) {
-		TOT_BLOCK_NUM=i
-		TOT_COINS=TOTAL_COINS_NUMBER
-		END_AWARD_TIME=TIME_CNT
-		break;
-	    }
-	    i++;
-	}
+        var TOTAL_COINS_NUMBER=0;
+        var i=0;
+        var AWARD_MEM=AWARD_INIT;
+        BLOCKMAP_ARRAY=new Array();
+        while(1) {
+            var DIFFICULTY=get_difficulty_for_block(i);
+            var AWARD=get_award_for_block(i);
+            if (AWARD < AWARD_MEM) {
+                AWARD_MEM=AWARD
+            }
+            BLOCKMAP_ARRAY[i]=new block_obj();
+            BLOCKMAP_ARRAY[i].block_num=i
+            BLOCKMAP_ARRAY[i].difficulty=DIFFICULTY;
+            BLOCKMAP_ARRAY[i].award=AWARD;
+            BLOCKMAP_ARRAY[i].total_coins=TOTAL_COINS_NUMBER;
+            BLOCKMAP_ARRAY[i].startAt=TIME_CNT;
+            TOTAL_COINS_NUMBER+=AWARD
+            TIME_CNT=TIME_CNT+BLOCK_INTERVAL_SECS;
+            if ((curBlock==-1) && (TIME_CNT > curTimeStamp)) {
+                curBlock=i;
+            }
+            if(AWARD<MINIMUM_AWARD) {
+                TOT_BLOCK_NUM=i
+                TOT_COINS=TOTAL_COINS_NUMBER
+                END_AWARD_TIME=TIME_CNT
+                break;
+            }
+            i++;
+        }
     }
 
     function abs_putpixel(x,y,PEN_SIZE) {
-	putPixel(ORIGIN_X+x,ORIGIN_Y+y,PEN_SIZE);
+        putPixel(ORIGIN_X+x,ORIGIN_Y+y,PEN_SIZE);
     }
 
     function abs_lineto(x,y) {
-	ctx.moveTo(ORIGIN_X,ORIGIN_Y);
-	ctx.lineTo(ORIGIN_X+x,ORIGIN_Y+y);
+        ctx.moveTo(ORIGIN_X,ORIGIN_Y);
+        ctx.lineTo(ORIGIN_X+x,ORIGIN_Y+y);
     }
 
     function putPixel(x,y,PEN_SIZE) {
-	ctx.fillStyle = "rgba(0,0,0,0,1)";
-	ctx.fillRect(x,y,PEN_SIZE,PEN_SIZE);
+        ctx.fillStyle = "rgba(0,0,0,0,1)";
+        ctx.fillRect(x,y,PEN_SIZE,PEN_SIZE);
     }
 
     function draw_graph() {
-	timeStampInMs = window.performance && window.performance.now && window.performance.timing && window.performance.timing.navigationStart ? window.performance.now()+window.performance.timing.navigationStart : Date.now();
-	curTimeStamp=parseInt(timeStampInMs/1000);
-	curBlock=-1;
-	TIME_CNT=parseInt(BLOCKCHAIN_START_TIME);
-	buildBlockMap();
-	if(curBlock==-1) {
-	    document.getElementById('next_table').style.display='none';
-	}
-	else {
-	    document.getElementById('last_block').innerHTML='';
-	    document.getElementById('next_block').innerHTML='';
-	    document.getElementById('next_table').style.display='block';
-	}
-	utime='time';
-	ctx.setLineDash([]);
-	ctx.clearRect(0,0,c.width,c.height);
-	ctx.beginPath();
-	ctx.fillStyle = colors_background;
-	ctx.fillRect(0,0,c.width,c.height); 
-	ctx.font = "bold 7pt Arial";
-	ctx.strokeStyle = colors_line;
-	ctx.fillStyle = colors_text;
-	ctx.moveTo(ORIGIN_X,ORIGIN_Y);
-	ctx.strokeStyle="#232323";
-	ctx.lineWidth=2;
-	ctx.textAlign="center";
-	ctx.textAlign="center"; 
-	ctx.textBaseline = "middle";
-	ctx.font = "bold 16pt Georgia";
-	var rectHeight = 30;
-	var rectWidth = c.width;
-	var rectX = 10;
-	var rectY = 10;
-	ctx.fillText("Crypto-Currency Supply Designer",rectX+(rectWidth/2),rectY+(rectHeight/2));
-	ctx.font = "8pt Arial";
-	var rectHeight = 80;
-	var rectWidth = c.width;
-	var rectX = 10;
-	var rectY = 10;
-	var t='';
-	if(BLOCK_INTERVAL_SECS>=60) {
-	    if((BLOCK_INTERVAL_SECS/60) == 1) {
-	t="Block time: 1 minute";
-	    }
-	    else {
-	t="Block time: "+parseInt(BLOCK_INTERVAL_SECS/60)+' minutes'
-	    }
-	}
-	else {
-	    t="Block time: "+BLOCK_INTERVAL_SECS+' seconds' 
-	}
-	t+=', Difficulty increases every: '+numberWithCommas(CHANGE_DIFF_EVERY_BLOCK)+' blocks'
-	t+=', Initial reward: '+numberWithCommas(AWARD_INIT)+' Ƀ'
-	t+=', Network bootstrap time: '+timeConverter(BLOCKCHAIN_START_TIME,'time');
-	ctx.fillText(t,rectX+(rectWidth/2),rectY+(rectHeight/2));
-	ctx.font = "bold 7pt Arial";
-	ctx.textAlign="left";
-	abs_lineto(WIDTH_PX,0); 
-	abs_lineto(NEGATIVE_AXES_LEN*-1,0); 
-	abs_lineto(0,WIDTH_PY*-1);
-	abs_lineto(0,NEGATIVE_AXES_LEN);
-	var part_y=WIDTH_PY/10;
-	for(p=0;p<=10;p++) {
-	    abs_putpixel(-3,(p*part_y)*-1-1,2)
-	    abs_putpixel(-2,(p*part_y)*-1-1,2)
-	    var bn=parseInt((p*part_y)*TOT_COINS/WIDTH_PY);
-	    ctx.fillText(numberWithCommas(bn)+' Ƀ',ORIGIN_X-80,ORIGIN_Y-((p*part_y)));
-	    var b=getBlockForCoinNum(bn);
-	    ctx.fillText(numberWithCommas(BLOCKMAP_ARRAY[b].award.toFixed(2))+' Ƀ',ORIGIN_X-140,ORIGIN_Y-((p*part_y)));
-	    ctx.fillText(numberWithCommas(BLOCKMAP_ARRAY[b].difficulty.length),ORIGIN_X-200,ORIGIN_Y-((p*part_y)));
-	}
-	ctx.stroke();
+        timeStampInMs = window.performance && window.performance.now && window.performance.timing && window.performance.timing.navigationStart ? window.performance.now()+window.performance.timing.navigationStart : Date.now();
+        curTimeStamp=parseInt(timeStampInMs/1000);
+        curBlock=-1;
+        TIME_CNT=parseInt(BLOCKCHAIN_START_TIME);
+        buildBlockMap();
+        if(curBlock==-1) {
+            document.getElementById('next_table').style.display='none';
+        }
+        else {
+            document.getElementById('last_block').innerHTML='';
+            document.getElementById('next_block').innerHTML='';
+            document.getElementById('next_table').style.display='block';
+        }
+        utime='time';
+        ctx.setLineDash([]);
+        ctx.clearRect(0,0,c.width,c.height);
+        ctx.beginPath();
+        ctx.fillStyle = colors_background;
+        ctx.fillRect(0,0,c.width,c.height); 
+        ctx.font = "bold 7pt Arial";
+        ctx.strokeStyle = colors_line;
+        ctx.fillStyle = colors_text;
+        ctx.moveTo(ORIGIN_X,ORIGIN_Y);
+        ctx.strokeStyle="#232323";
+        ctx.lineWidth=2;
+        ctx.textAlign="center";
+        ctx.textAlign="center"; 
+        ctx.textBaseline = "middle";
+        ctx.font = "bold 16pt Georgia";
+        var rectHeight = 30;
+        var rectWidth = c.width;
+        var rectX = 10;
+        var rectY = 10;
+        ctx.fillText("Crypto-Currency Supply Designer",rectX+(rectWidth/2),rectY+(rectHeight/2));
+        ctx.font = "8pt Arial";
+        var rectHeight = 80;
+        var rectWidth = c.width;
+        var rectX = 10;
+        var rectY = 10;
+        var t='';
+        if(BLOCK_INTERVAL_SECS>=60) {
+            if((BLOCK_INTERVAL_SECS/60) == 1) {
+        t="Block time: 1 minute";
+            }
+            else {
+        t="Block time: "+parseInt(BLOCK_INTERVAL_SECS/60)+' minutes'
+            }
+        }
+        else {
+            t="Block time: "+BLOCK_INTERVAL_SECS+' seconds' 
+        }
+        t+=', Difficulty increases every: '+numberWithCommas(CHANGE_DIFF_EVERY_BLOCK)+' blocks'
+        t+=', Initial reward: '+numberWithCommas(AWARD_INIT)+' Ƀ'
+        t+=', Network bootstrap time: '+timeConverter(BLOCKCHAIN_START_TIME,'time');
+        ctx.fillText(t,rectX+(rectWidth/2),rectY+(rectHeight/2));
+        ctx.font = "bold 7pt Arial";
+        ctx.textAlign="left";
+        abs_lineto(WIDTH_PX,0); 
+        abs_lineto(NEGATIVE_AXES_LEN*-1,0); 
+        abs_lineto(0,WIDTH_PY*-1);
+        abs_lineto(0,NEGATIVE_AXES_LEN);
+        var part_y=WIDTH_PY/10;
+        for(p=0;p<=10;p++) {
+            abs_putpixel(-3,(p*part_y)*-1-1,2)
+            abs_putpixel(-2,(p*part_y)*-1-1,2)
+            var bn=parseInt((p*part_y)*TOT_COINS/WIDTH_PY);
+            ctx.fillText(numberWithCommas(bn)+' Ƀ',ORIGIN_X-80,ORIGIN_Y-((p*part_y)));
+            var b=getBlockForCoinNum(bn);
+            ctx.fillText(numberWithCommas(BLOCKMAP_ARRAY[b].award.toFixed(2))+' Ƀ',ORIGIN_X-140,ORIGIN_Y-((p*part_y)));
+            ctx.fillText(numberWithCommas(BLOCKMAP_ARRAY[b].difficulty.length),ORIGIN_X-200,ORIGIN_Y-((p*part_y)));
+        }
+        ctx.stroke();
 
-	ctx.beginPath();
-	ctx.fillText('COINS',ORIGIN_X-80,ORIGIN_Y-((p*part_y)));
-	ctx.fillText('REWARD',ORIGIN_X-140,ORIGIN_Y-((p*part_y)));
-	ctx.fillText('DIFFICULTY',ORIGIN_X-200,ORIGIN_Y-((p*part_y)));
-	ctx.stroke();
+        ctx.beginPath();
+        ctx.fillText('COINS',ORIGIN_X-80,ORIGIN_Y-((p*part_y)));
+        ctx.fillText('REWARD',ORIGIN_X-140,ORIGIN_Y-((p*part_y)));
+        ctx.fillText('DIFFICULTY',ORIGIN_X-200,ORIGIN_Y-((p*part_y)));
+        ctx.stroke();
 
-	ctx.beginPath();
-	var part_x=(WIDTH_PX)/(TOT_BLOCK_NUM/CHANGE_DIFF_EVERY_BLOCK);
-	var i=0;
-	var p=0;
-	while(1) {
-	    var AWARD=get_award_for_block(i);
-	    abs_putpixel((p*part_x)-1,1,2)
-	    abs_putpixel((p*part_x)-1,0,2)
-	    var bn=parseInt((p*part_x)*TOT_BLOCK_NUM/WIDTH_PX);
-	    ctx.fillText(numberWithCommas(bn),ORIGIN_X+((p*part_x))+5,ORIGIN_Y+30);
-	    ctx.fillText(timeConverter (parseInt(BLOCKCHAIN_START_TIME)+parseInt((p*part_x)*(TIME_CNT-BLOCKCHAIN_START_TIME)/WIDTH_PX),utime),ORIGIN_X+((p*part_x))+5,ORIGIN_Y+15);
-	    ctx.fillText(numberWithCommas(BLOCKMAP_ARRAY[bn].award.toFixed(2))+' Ƀ',ORIGIN_X+((p*part_x))+5,ORIGIN_Y+45);
-	    ctx.fillText(numberWithCommas(BLOCKMAP_ARRAY[bn].difficulty.length),ORIGIN_X+((p*part_x))+5,ORIGIN_Y+60);
-	    p++;
-	    if(AWARD<MINIMUM_AWARD) {     // no better precision for the algo used
-		break;
-	    }
-	    i+=CHANGE_DIFF_EVERY_BLOCK;
-	}
-	abs_putpixel((curBlock*WIDTH_PX/TOT_BLOCK_NUM)-1,0,2);
-	abs_putpixel((curBlock*WIDTH_PX/TOT_BLOCK_NUM)-1,1,2);
-	ctx.stroke();
+        ctx.beginPath();
+        var part_x=(WIDTH_PX)/(TOT_BLOCK_NUM/CHANGE_DIFF_EVERY_BLOCK);
+        var i=0;
+        var p=0;
+        while(1) {
+            var AWARD=get_award_for_block(i);
+            abs_putpixel((p*part_x)-1,1,2)
+            abs_putpixel((p*part_x)-1,0,2)
+            var bn=parseInt((p*part_x)*TOT_BLOCK_NUM/WIDTH_PX);
+            ctx.fillText(numberWithCommas(bn),ORIGIN_X+((p*part_x))+5,ORIGIN_Y+30);
+            ctx.fillText(timeConverter (parseInt(BLOCKCHAIN_START_TIME)+parseInt((p*part_x)*(TIME_CNT-BLOCKCHAIN_START_TIME)/WIDTH_PX),utime),ORIGIN_X+((p*part_x))+5,ORIGIN_Y+15);
+            ctx.fillText(numberWithCommas(BLOCKMAP_ARRAY[bn].award.toFixed(2))+' Ƀ',ORIGIN_X+((p*part_x))+5,ORIGIN_Y+45);
+            ctx.fillText(numberWithCommas(BLOCKMAP_ARRAY[bn].difficulty.length),ORIGIN_X+((p*part_x))+5,ORIGIN_Y+60);
+            p++;
+            if(AWARD<MINIMUM_AWARD) {     // no better precision for the algo used
+                break;
+            }
+            i+=CHANGE_DIFF_EVERY_BLOCK;
+        }
+        abs_putpixel((curBlock*WIDTH_PX/TOT_BLOCK_NUM)-1,0,2);
+        abs_putpixel((curBlock*WIDTH_PX/TOT_BLOCK_NUM)-1,1,2);
+        ctx.stroke();
 
-	ctx.beginPath();
-	ctx.fillText('BLOCKS',ORIGIN_X+((p*part_x-part_x+60)),ORIGIN_Y+30);
-	ctx.fillText('REWARD',ORIGIN_X+((p*part_x-part_x+60)),ORIGIN_Y+45);
-	ctx.fillText('DIFFICULTY',ORIGIN_X+((p*part_x)-part_x+60),ORIGIN_Y+60);
-	ctx.fillText("© Giacomo Picconi, "+(new Date()).getFullYear()+' <giacomo.picconi@gmail.com>',ORIGIN_X+((p*part_x)-part_x-140),ORIGIN_Y+85);
-	ctx.fillText('COINS/BLOCKS',ORIGIN_X-80,ORIGIN_Y+30);
-	ctx.fillText('REWARD',ORIGIN_X -140,ORIGIN_Y+45);
-	ctx.fillText('DIFFICULTY',ORIGIN_X-200,ORIGIN_Y+60);
-	ctx.stroke();
-	
-	ctx.beginPath();
-	ctx.strokeStyle="#FC2847";
-	ctx.lineWidth=3;
-	var CUR_X=ORIGIN_X;
-	var CUR_Y=ORIGIN_Y;
-	for(i=0;i<BLOCKMAP_ARRAY.length;i++) {
-	    var block_num=i
-	    var coin_num=BLOCKMAP_ARRAY[i].total_coins;
-	    var pro_coin_num=coin_num*WIDTH_PY/TOT_COINS
-	    var pro_block_num=block_num*WIDTH_PX/TOT_BLOCK_NUM 
-	    ctx.moveTo(CUR_X,CUR_Y);
-	    ctx.lineTo(ORIGIN_X+pro_block_num,ORIGIN_Y+pro_coin_num*-1);
-	    CUR_X=ORIGIN_X+pro_block_num
-	    CUR_Y=ORIGIN_Y+pro_coin_num*-1;
-	    if(BLOCKMAP_ARRAY.length > WIDTH_PX) {
-		i+=parseInt(BLOCKMAP_ARRAY.length/parseInt(WIDTH_PX))
-	    }
-	    if(i>BLOCKMAP_ARRAY.length) {
-		break
-	    }
-	}
-	ctx.stroke();
-	
-	ctx.beginPath();
-	ctx.strokeStyle="#232323";
-	ctx.setLineDash([1,1]);
-	ctx.lineWidth=1;
-	var i=0;
-	var p=0;
-	while(1) {
-	    var AWARD=get_award_for_block(i);
-	    var bn=parseInt((p*part_x)*TOT_BLOCK_NUM/WIDTH_PX);
-	    ctx.moveTo(ORIGIN_X+((p*part_x)),ORIGIN_Y);
-	    ctx.lineTo(ORIGIN_X+((p*part_x)),ORIGIN_Y+(BLOCKMAP_ARRAY[bn].total_coins*WIDTH_PY/TOT_COINS)*-1);
-	    ctx.lineTo(ORIGIN_X,ORIGIN_Y+(BLOCKMAP_ARRAY[bn].total_coins*WIDTH_PY/TOT_COINS)*-1);
-	    p++;
-	    if(AWARD<MINIMUM_AWARD) {     // no better precision for the algo used
-		break;
-	    }
-	    i+=CHANGE_DIFF_EVERY_BLOCK;
-	}
-	ctx.stroke();
-	
-	if(curBlock!=-1) {
-	    ctx.beginPath();
-	    ctx.strokeStyle="#1A4876";
-	    ctx.setLineDash([3,3]);
-	    ctx.font = "bold 8pt Arial";
-	    ctx.lineWidth=4;
-	    ctx.fillStyle = "#1A4876";
-	    ctx.moveTo(ORIGIN_X+(curBlock*WIDTH_PX/TOT_BLOCK_NUM),ORIGIN_Y);
-	    ctx.lineTo(ORIGIN_X+(curBlock*WIDTH_PX/TOT_BLOCK_NUM),ORIGIN_Y+(BLOCKMAP_ARRAY[curBlock].total_coins*WIDTH_PY/TOT_COINS)*-1);
-	    ctx.lineTo(ORIGIN_X,ORIGIN_Y+(BLOCKMAP_ARRAY[curBlock].total_coins*WIDTH_PY/TOT_COINS)*-1);
-	    var oppos=0;
-	    if((BLOCKMAP_ARRAY[curBlock].total_coins*WIDTH_PY/TOT_COINS) < 110) {
-		oppos=-110;
-	    }
-	    var oppos_x=0;
-	    if(((ORIGIN_X+curBlock*WIDTH_PX/TOT_BLOCK_NUM)+240)>CANVAS_WIDTH){
-		oppos=20;
-		oppos_x=-260;
-	    }
-	    ctx.fillText('Current time: '+timeConverter(curTimeStamp,'time'),ORIGIN_X+(curBlock*WIDTH_PX/TOT_BLOCK_NUM)+10+oppos_x,ORIGIN_Y+(BLOCKMAP_ARRAY[curBlock].total_coins*WIDTH_PY/TOT_COINS)*-1+10+oppos) ;
-	    var il=15
-	    var iline=il;
-	    ctx.fillText('Current coin supply: '+numberWithCommas(BLOCKMAP_ARRAY[curBlock].total_coins)+' Ƀ',ORIGIN_X+(curBlock*WIDTH_PX/TOT_BLOCK_NUM)+10+oppos_x,ORIGIN_Y+(BLOCKMAP_ARRAY[curBlock].total_coins*WIDTH_PY/TOT_COINS)*-1+10+iline+oppos);
-	    iline+=il
-	    ctx.fillText('Current reward: '+numberWithCommas(BLOCKMAP_ARRAY[curBlock].award)+' Ƀ',ORIGIN_X+(curBlock*WIDTH_PX/TOT_BLOCK_NUM)+10+oppos_x,ORIGIN_Y+(BLOCKMAP_ARRAY[curBlock].total_coins*WIDTH_PY/TOT_COINS)*-1+10+iline+oppos);
-	    iline+=il
-	    ctx.fillText('Last block: '+numberWithCommas(curBlock),ORIGIN_X+(curBlock*WIDTH_PX/TOT_BLOCK_NUM)+10+oppos_x,ORIGIN_Y+(BLOCKMAP_ARRAY[curBlock].total_coins*WIDTH_PY/TOT_COINS)*-1+10+iline+oppos);
-	    iline+=il
-	    ctx.fillText('Last block started at: '+timeConverter(BLOCKMAP_ARRAY[curBlock].startAt,'time'),ORIGIN_X+(curBlock*WIDTH_PX/TOT_BLOCK_NUM)+10+oppos_x,ORIGIN_Y+(BLOCKMAP_ARRAY[curBlock].total_coins*WIDTH_PY/TOT_COINS)*-1+10+iline+oppos);
-	    iline+=il
-	    ctx.fillText('Next block will start at: '+timeConverter(BLOCKMAP_ARRAY[curBlock].startAt+BLOCK_INTERVAL_SECS,'time'),ORIGIN_X+(curBlock*WIDTH_PX/TOT_BLOCK_NUM)+10+oppos_x,ORIGIN_Y+(BLOCKMAP_ARRAY[curBlock].total_coins*WIDTH_PY/TOT_COINS)*-1+10+iline+oppos);
-	    iline+=il
-	    ctx.fillText('Current difficulty: '+numberWithCommas(BLOCKMAP_ARRAY[curBlock].difficulty.length),ORIGIN_X+(curBlock*WIDTH_PX/TOT_BLOCK_NUM)+10+oppos_x,ORIGIN_Y+(BLOCKMAP_ARRAY[curBlock].total_coins*WIDTH_PY/TOT_COINS)*-1+10+iline+oppos);
-	    ctx.stroke();
-	    document.getElementById('last_block').innerHTML=' &nbsp; Last formal block: '+numberWithCommas(curBlock)+' &nbsp; ';
-	    document.getElementById('next_block').innerHTML=' &nbsp; Next formal block: '+numberWithCommas(curBlock+1)+' &nbsp; ';
-	}
-	else {
-	    document.getElementById('next_time_div').innerHTML=' &nbsp; All coins are mined &nbsp; ';
-	    document.getElementById('last_block').innerHTML='';
-	    document.getElementById('next_block').innerHTML='';
-	}
+        ctx.beginPath();
+        ctx.fillText('BLOCKS',ORIGIN_X+((p*part_x-part_x+60)),ORIGIN_Y+30);
+        ctx.fillText('REWARD',ORIGIN_X+((p*part_x-part_x+60)),ORIGIN_Y+45);
+        ctx.fillText('DIFFICULTY',ORIGIN_X+((p*part_x)-part_x+60),ORIGIN_Y+60);
+        ctx.fillText("© Giacomo Picconi, "+(new Date()).getFullYear()+' <giacomo.picconi@gmail.com>',ORIGIN_X+((p*part_x)-part_x-140),ORIGIN_Y+85);
+        ctx.fillText('COINS/BLOCKS',ORIGIN_X-80,ORIGIN_Y+30);
+        ctx.fillText('REWARD',ORIGIN_X -140,ORIGIN_Y+45);
+        ctx.fillText('DIFFICULTY',ORIGIN_X-200,ORIGIN_Y+60);
+        ctx.stroke();
+        
+        ctx.beginPath();
+        ctx.strokeStyle="#FC2847";
+        ctx.lineWidth=3;
+        var CUR_X=ORIGIN_X;
+        var CUR_Y=ORIGIN_Y;
+        for(i=0;i<BLOCKMAP_ARRAY.length;i++) {
+            var block_num=i
+            var coin_num=BLOCKMAP_ARRAY[i].total_coins;
+            var pro_coin_num=coin_num*WIDTH_PY/TOT_COINS
+            var pro_block_num=block_num*WIDTH_PX/TOT_BLOCK_NUM 
+            ctx.moveTo(CUR_X,CUR_Y);
+            ctx.lineTo(ORIGIN_X+pro_block_num,ORIGIN_Y+pro_coin_num*-1);
+            CUR_X=ORIGIN_X+pro_block_num
+            CUR_Y=ORIGIN_Y+pro_coin_num*-1;
+            if(BLOCKMAP_ARRAY.length > WIDTH_PX) {
+                i+=parseInt(BLOCKMAP_ARRAY.length/parseInt(WIDTH_PX))
+            }
+            if(i>BLOCKMAP_ARRAY.length) {
+                break
+            }
+        }
+        ctx.stroke();
+        
+        ctx.beginPath();
+        ctx.strokeStyle="#232323";
+        ctx.setLineDash([1,1]);
+        ctx.lineWidth=1;
+        var i=0;
+        var p=0;
+        while(1) {
+            var AWARD=get_award_for_block(i);
+            var bn=parseInt((p*part_x)*TOT_BLOCK_NUM/WIDTH_PX);
+            ctx.moveTo(ORIGIN_X+((p*part_x)),ORIGIN_Y);
+            ctx.lineTo(ORIGIN_X+((p*part_x)),ORIGIN_Y+(BLOCKMAP_ARRAY[bn].total_coins*WIDTH_PY/TOT_COINS)*-1);
+            ctx.lineTo(ORIGIN_X,ORIGIN_Y+(BLOCKMAP_ARRAY[bn].total_coins*WIDTH_PY/TOT_COINS)*-1);
+            p++;
+            if(AWARD<MINIMUM_AWARD) {     // no better precision for the algo used
+                break;
+            }
+            i+=CHANGE_DIFF_EVERY_BLOCK;
+        }
+        ctx.stroke();
+        
+        if(curBlock!=-1) {
+            ctx.beginPath();
+            ctx.strokeStyle="#1A4876";
+            ctx.setLineDash([3,3]);
+            ctx.font = "bold 8pt Arial";
+            ctx.lineWidth=4;
+            ctx.fillStyle = "#1A4876";
+            ctx.moveTo(ORIGIN_X+(curBlock*WIDTH_PX/TOT_BLOCK_NUM),ORIGIN_Y);
+            ctx.lineTo(ORIGIN_X+(curBlock*WIDTH_PX/TOT_BLOCK_NUM),ORIGIN_Y+(BLOCKMAP_ARRAY[curBlock].total_coins*WIDTH_PY/TOT_COINS)*-1);
+            ctx.lineTo(ORIGIN_X,ORIGIN_Y+(BLOCKMAP_ARRAY[curBlock].total_coins*WIDTH_PY/TOT_COINS)*-1);
+            var oppos=0;
+            if((BLOCKMAP_ARRAY[curBlock].total_coins*WIDTH_PY/TOT_COINS) < 110) {
+                oppos=-110;
+            }
+            var oppos_x=0;
+            if(((ORIGIN_X+curBlock*WIDTH_PX/TOT_BLOCK_NUM)+240)>CANVAS_WIDTH){
+                oppos=20;
+                oppos_x=-260;
+            }
+            ctx.fillText('Current time: '+timeConverter(curTimeStamp,'time'),ORIGIN_X+(curBlock*WIDTH_PX/TOT_BLOCK_NUM)+10+oppos_x,ORIGIN_Y+(BLOCKMAP_ARRAY[curBlock].total_coins*WIDTH_PY/TOT_COINS)*-1+10+oppos) ;
+            var il=15
+            var iline=il;
+            ctx.fillText('Current coin supply: '+numberWithCommas(BLOCKMAP_ARRAY[curBlock].total_coins)+' Ƀ',ORIGIN_X+(curBlock*WIDTH_PX/TOT_BLOCK_NUM)+10+oppos_x,ORIGIN_Y+(BLOCKMAP_ARRAY[curBlock].total_coins*WIDTH_PY/TOT_COINS)*-1+10+iline+oppos);
+            iline+=il
+            ctx.fillText('Current reward: '+numberWithCommas(BLOCKMAP_ARRAY[curBlock].award)+' Ƀ',ORIGIN_X+(curBlock*WIDTH_PX/TOT_BLOCK_NUM)+10+oppos_x,ORIGIN_Y+(BLOCKMAP_ARRAY[curBlock].total_coins*WIDTH_PY/TOT_COINS)*-1+10+iline+oppos);
+            iline+=il
+            ctx.fillText('Last block: '+numberWithCommas(curBlock),ORIGIN_X+(curBlock*WIDTH_PX/TOT_BLOCK_NUM)+10+oppos_x,ORIGIN_Y+(BLOCKMAP_ARRAY[curBlock].total_coins*WIDTH_PY/TOT_COINS)*-1+10+iline+oppos);
+            iline+=il
+            ctx.fillText('Last block started at: '+timeConverter(BLOCKMAP_ARRAY[curBlock].startAt,'time'),ORIGIN_X+(curBlock*WIDTH_PX/TOT_BLOCK_NUM)+10+oppos_x,ORIGIN_Y+(BLOCKMAP_ARRAY[curBlock].total_coins*WIDTH_PY/TOT_COINS)*-1+10+iline+oppos);
+            iline+=il
+            ctx.fillText('Next block will start at: '+timeConverter(BLOCKMAP_ARRAY[curBlock].startAt+BLOCK_INTERVAL_SECS,'time'),ORIGIN_X+(curBlock*WIDTH_PX/TOT_BLOCK_NUM)+10+oppos_x,ORIGIN_Y+(BLOCKMAP_ARRAY[curBlock].total_coins*WIDTH_PY/TOT_COINS)*-1+10+iline+oppos);
+            iline+=il
+            ctx.fillText('Current difficulty: '+numberWithCommas(BLOCKMAP_ARRAY[curBlock].difficulty.length),ORIGIN_X+(curBlock*WIDTH_PX/TOT_BLOCK_NUM)+10+oppos_x,ORIGIN_Y+(BLOCKMAP_ARRAY[curBlock].total_coins*WIDTH_PY/TOT_COINS)*-1+10+iline+oppos);
+            ctx.stroke();
+            document.getElementById('last_block').innerHTML=' &nbsp; Last formal block: '+numberWithCommas(curBlock)+' &nbsp; ';
+            document.getElementById('next_block').innerHTML=' &nbsp; Next formal block: '+numberWithCommas(curBlock+1)+' &nbsp; ';
+        }
+        else {
+            document.getElementById('next_time_div').innerHTML=' &nbsp; All coins are mined &nbsp; ';
+            document.getElementById('last_block').innerHTML='';
+            document.getElementById('next_block').innerHTML='';
+        }
     }
 
     function sbtc(bt,bi,ir,bd) {
-	window.scrollTo(0,0); 
-	document.getElementById('block_time').value=bt;
-	document.getElementById('block_inc').value=bi;
-	document.getElementById('init_reward').value=ir;
-	document.getElementById('boot_date').value=bd;
-	startcalc();
+        window.scrollTo(0,0); 
+        document.getElementById('block_time').value=bt;
+        document.getElementById('block_inc').value=bi;
+        document.getElementById('init_reward').value=ir;
+        document.getElementById('boot_date').value=bd;
+        startcalc();
     }
     
     function startLoopDelay() {
-	if(uTimer!=null) {
-	    clearInterval(uTimer);
-	}
-	draw_graph();
-	uTimer=setInterval('update_timer()',1000);
+        if(uTimer!=null) {
+            clearInterval(uTimer);
+        }
+        draw_graph();
+        uTimer=setInterval('update_timer()',1000);
     }
     
     function startLoop() {    
-	ctx.clearRect(0,0,c.width,c.height);
-	ctx.beginPath();
-	ctx.fillStyle = colors_background;
-	ctx.fillRect(0,0,c.width,c.height); 
-	ctx.strokeStyle = colors_line;
-	ctx.fillStyle = colors_text;
-	ctx.font = "bold 32pt Georgia";
-	ctx.fillText("Crypto-Currency Supply Designer",CANVAS_WIDTH/2-350,180);
-	ctx.font = "bold 17pt Arial";
-	ctx.fillText("Rendering ... Please wait ...",CANVAS_WIDTH/2-350,280);    
-	var t='';
-	if(BLOCK_INTERVAL_SECS>=60) {
-	    if((BLOCK_INTERVAL_SECS/60) == 1) {
-	t="Block time: 1 minute";
-	    }
-	    else {
-	t="Block time: "+parseInt(BLOCK_INTERVAL_SECS/60)+' minutes'
-	    }
-	}
-	else {
-	    t="Block time: "+BLOCK_INTERVAL_SECS+' seconds' 
-	}
-	t+=', Difficulty increases every: '+numberWithCommas(CHANGE_DIFF_EVERY_BLOCK)+' blocks'
-	t+=', Initial reward: '+numberWithCommas(AWARD_INIT)+' Ƀ'
-	t+=', Network bootstrap time: '+timeConverter(BLOCKCHAIN_START_TIME,'time');
-	ctx.font = "bold 8pt Arial";
-	ctx.fillText(t,CANVAS_WIDTH/2-350,310);
-	ctx.closePath();
-	ctx.stroke();
-	setTimeout("startLoopDelay()",100);
+        ctx.clearRect(0,0,c.width,c.height);
+        ctx.beginPath();
+        ctx.fillStyle = colors_background;
+        ctx.fillRect(0,0,c.width,c.height); 
+        ctx.strokeStyle = colors_line;
+        ctx.fillStyle = colors_text;
+        ctx.font = "bold 32pt Georgia";
+        ctx.fillText("Crypto-Currency Supply Designer",CANVAS_WIDTH/2-350,180);
+        ctx.font = "bold 17pt Arial";
+        ctx.fillText("Rendering ... Please wait ...",CANVAS_WIDTH/2-350,280);    
+        var t='';
+        if(BLOCK_INTERVAL_SECS>=60) {
+            if((BLOCK_INTERVAL_SECS/60) == 1) {
+        t="Block time: 1 minute";
+            }
+            else {
+        t="Block time: "+parseInt(BLOCK_INTERVAL_SECS/60)+' minutes'
+            }
+        }
+        else {
+            t="Block time: "+BLOCK_INTERVAL_SECS+' seconds' 
+        }
+        t+=', Difficulty increases every: '+numberWithCommas(CHANGE_DIFF_EVERY_BLOCK)+' blocks'
+        t+=', Initial reward: '+numberWithCommas(AWARD_INIT)+' Ƀ'
+        t+=', Network bootstrap time: '+timeConverter(BLOCKCHAIN_START_TIME,'time');
+        ctx.font = "bold 8pt Arial";
+        ctx.fillText(t,CANVAS_WIDTH/2-350,310);
+        ctx.closePath();
+        ctx.stroke();
+        setTimeout("startLoopDelay()",100);
     }
 
     var uTimer=null;
@@ -584,10 +584,10 @@
     document.getElementById('block_inc').value=CHANGE_DIFF_EVERY_BLOCK;
     document.getElementById('init_reward').value=AWARD_INIT;
     if(BLOCKCHAIN_START_TIME==1231006505) {
-	document.getElementById('boot_date').value='btc'
+        document.getElementById('boot_date').value='btc'
     }
     else {
-	document.getElementById('boot_date').value='cur'
+        document.getElementById('boot_date').value='cur'
     }
     var TOT_BLOCK_NUM=0;
     var TOT_COINS=0;
@@ -613,5 +613,5 @@
     document.getElementById('gdiv').appendChild(c);
     window.onload=startLoop;
 </script>
-</boody>	
+</boody>        
 </html>
