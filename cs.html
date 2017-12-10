@@ -544,7 +544,7 @@
 	ctx.fillRect(0,0,c.width,c.height); 
 	ctx.strokeStyle = colors_line;
 	ctx.fillStyle = colors_text;
-	ctx.font = "bold 32pt Arial";
+	ctx.font = "bold 32pt Georgia";
 	ctx.fillText("Crypto-Currency Supply Designer",CANVAS_WIDTH/2-350,180);
 	ctx.font = "bold 17pt Arial";
 	ctx.fillText("Rendering ... Please wait ...",CANVAS_WIDTH/2-350,280);    
@@ -564,7 +564,7 @@
 	t+=', Initial reward: '+numberWithCommas(AWARD_INIT)+' Ƀ'
 	t+=', Network bootstrap time: '+timeConverter(BLOCKCHAIN_START_TIME,'time');
 	ctx.font = "bold 8pt Arial";
-	ctx.fillText(t,CANVAS_WIDTH/2-350,320);
+	ctx.fillText(t,CANVAS_WIDTH/2-350,310);
 	ctx.closePath();
 	ctx.stroke();
 	setTimeout("startLoopDelay()",100);
