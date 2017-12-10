@@ -174,11 +174,12 @@
 	var tStampInMs = window.performance && window.performance.now && window.performance.timing && window.performance.timing.navigationStart ? window.performance.now()+window.performance.timing.navigationStart : Date.now();
 	var curTStamp=tStampInMs/1000;
 	var s=numberWithCommas(parseInt(BLOCKMAP_ARRAY[curBlock+1].startAt-curTStamp));
-	if(s==-1) {
+	//if(s==-1) {
+	if(s<0) {
 	    document.getElementById('next_time_div').innerHTML=' &nbsp; Updating Graph ...';
-	    clearInterval(uTimer);
+	    //clearInterval(uTimer);
 	    draw_graph();
-	    uTimer=setInterval('update_timer()',1000);
+	    //uTimer=setInterval('update_timer()',1000);
 	}
 	else {
 	    var newsize=parseInt(document.getElementById('next_time').clientWidth*(BLOCK_INTERVAL_SECS-s)/BLOCK_INTERVAL_SECS);
