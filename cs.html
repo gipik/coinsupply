@@ -182,7 +182,7 @@
 	}
 	else {
 	    var newsize=parseInt(document.getElementById('next_time').clientWidth*(BLOCK_INTERVAL_SECS-s)/BLOCK_INTERVAL_SECS);
-	    if(newsize<0){  // dirty fix
+	    if((newsize<0) || (newsize>CANVAS_WIDTH)){  // dirty fix
 		document.getElementById('next_time_div').innerHTML='?';
 	    }
 	    else{
