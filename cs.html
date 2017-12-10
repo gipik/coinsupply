@@ -245,7 +245,7 @@
     }
 
     function get_diff_number_from_block(blocknum) {
-	return(parseInt(parseFloat((parseInt(blocknum/CHANGE_DIFF_EVERY_BLOCK)*(Math.PI/30)+'').substring(0,4)).toFixed(1).replace('.','')));
+	return(parseInt(parseFloat((parseInt(blocknum/CHANGE_DIFF_EVERY_BLOCK)*0.10471975511965977+'').substring(0,4)).toFixed(1).replace('.','')));
     }
 
     function get_difficulty_for_block(blocknum) {
