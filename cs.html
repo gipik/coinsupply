@@ -27,14 +27,14 @@
 <head>
 <center>
 <div id=gdiv></div>
-<table width=1024 border=1 cellspacing=0 cellpadding=2 id=next_table style="font-size:small;font-family:arial;">
+<table width=1024 border=1 cellspacing=0 cellpadding=0 id=next_table style="font-size:small;font-family:arial;">
     <tr>
-        <td align=left width=180 nowrap id=last_block style="background-color:#EBF8F1;">
+        <td align=left width=178 nowrap id=last_block style="background-color:#EBF8F1;">
         </td>
-        <td align=left width=98% nowrap id=next_time style="background-color:#FCE883;">
+        <td align=left width=80% nowrap id=next_time style="background-color:#FCE883;">
             <div id=next_time_div style="background-color:#E7C697;margin:0px;font-weight:bold;color:#96E5160;" width=1 align=center></div>
         </td>
-        <td align=right width=180 nowrap id=next_block style="background-color:#FEEAED;">
+        <td align=right width=178 nowrap id=next_block style="background-color:#FEEAED;">
         </td>
     </tr>
 </table>
@@ -183,8 +183,10 @@
 	else {
 	    var newsize=parseInt(document.getElementById('next_time').clientWidth*(BLOCK_INTERVAL_SECS-s)/BLOCK_INTERVAL_SECS);
 	    if((newsize<0) || (newsize>CANVAS_WIDTH)){  // dirty fix
-		console.log('DEBUG:['+document.getElementById('next_time').clientWidth+']['+s+']['+newsize+']['+BLOCK_INTERVAL_SECS+']');
+		console.log('DEBUG:['+document.getElementById('next_time').clientWidth+']['+s+']['+newsize+']['+BLOCK_INTERVAL_SECS+']['+curBlock+']['+curTStamp+']');
 		document.getElementById('next_time_div').innerHTML='?';
+		document.getElementById('next_time_div').style.width='1px';
+		document.getElementById('next_time').style.width='1p%';
 	    }
 	    else{
 		document.getElementById('next_time_div').style.width=newsize+'px';
