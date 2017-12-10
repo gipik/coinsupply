@@ -223,6 +223,10 @@
 	return time;
     }
 
+    function get_diff_number_from_block(blocknum) {
+	return(parseInt(parseFloat((parseInt(blocknum/CHANGE_DIFF_EVERY_BLOCK)*0.10471975511965977+'').substring(0,4)).toFixed(1).replace('.','')));
+    }
+
     function get_award_for_block(blocknum) {
 	var BLOCK=blocknum
 	var AWARD=AWARD_INIT
@@ -234,22 +238,7 @@
 	return(AWARD);
     }
 
-    function getPrecision(scinum) {
-	var arr = new Array();
-	arr = scinum.split('e');
-	var exponent = Math.abs(arr[1]);
-	var precision = new Number(exponent);
-	arr = arr[0].split('.');
-	precision+= arr[1].length;
-	return precision;
-    }
-
-    function get_diff_number_from_block(blocknum) {
-	return(parseInt(parseFloat((parseInt(blocknum/CHANGE_DIFF_EVERY_BLOCK)*0.10471975511965977+'').substring(0,4)).toFixed(1).replace('.','')));
-    }
-
     function get_difficulty_for_block(blocknum) {
-	//get formal difficulty for the block
 	var BLOCK=blocknum
 	var DIFFICULTY=""
 	var i=0;
@@ -578,7 +567,6 @@
     var ORIGIN_X=PAD_MARGIN+NEGATIVE_AXES_LEN;
     var ORIGIN_Y=CANVAS_HEIGHT-PAD_MARGIN-NEGATIVE_AXES_LEN+25+100;
     var c = document.createElement('canvas');
-    c.id = 'atangraph';
     c.height = CANVAS_HEIGHT;
     c.width = CANVAS_WIDTH;
     c.style.border = "1px solid #000000";
