@@ -181,8 +181,14 @@
 	    uTimer=setInterval('update_timer()',1000);
 	}
 	else {
-	    document.getElementById('next_time_div').style.width=parseInt(document.getElementById('next_time').clientWidth*(BLOCK_INTERVAL_SECS-s)/BLOCK_INTERVAL_SECS)+'px';
-	    document.getElementById('next_time_div').innerHTML=' &nbsp; Next Block in: '+s+' seconds';
+	    var newsize=parseInt(document.getElementById('next_time').clientWidth*(BLOCK_INTERVAL_SECS-s)/BLOCK_INTERVAL_SECS);
+	    if(newsize<0){  // dirty fix
+		document.getElementById('next_time_div').innerHTML='?';
+	    }
+	    else{
+		document.getElementById('next_time_div').style.width=newsize+'px';
+		document.getElementById('next_time_div').innerHTML=' &nbsp; Next Block in: '+s+' seconds';
+	    }
 	}
     }
 
