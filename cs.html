@@ -241,7 +241,7 @@
     }
 
     function get_diff_number_from_block(blocknum) {
-	return(parseInt(parseFloat((parseInt(blocknum/CHANGE_DIFF_EVERY_BLOCK)*(Math.PI/RAD)+'').substring(0,4)).toFixed(1).replace('.','')));
+	return(parseInt(parseFloat((parseInt(blocknum/CHANGE_DIFF_EVERY_BLOCK)*(Math.PI/30)+'').substring(0,4)).toFixed(1).replace('.','')));
     }
 
     function get_difficulty_for_block(blocknum) {
@@ -542,7 +542,6 @@
     var BLOCKCHAIN_START_TIME=1231006505;
     var BLOCK_INTERVAL_SECS=600
     var CHANGE_DIFF_EVERY_BLOCK=210000
-    var RAD=30
     var AWARD_INIT=50
     var MINIMUM_AWARD=0.5;
 
