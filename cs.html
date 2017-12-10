@@ -67,27 +67,27 @@
             <b>Examples:</b><br>
 	    <ol>
 		<li> 
-		    Show a quick-supply currency that will reach the ~maximum coin supply of 99.2 coins in 23 seconds. Click <a href="javascript:void(0)" onclick="simul_bitcoin(3,1,50,'cur')">here</a> to show.
+		    Show a quick-supply currency that will reach the ~maximum coin supply of 99.2 coins in 23 seconds. Click <a href="javascript:void(0)" onclick="sbtc(3,1,50,'cur')">here</a> to show.
 		</li>
 		<br>
 		<li> 
-		    Show a quick-supply currency that will reach the ~maximum coin supply of 297.65 coins in 1 minute and 5 seconds. Click <a href="javascript:void(0)" onclick="simul_bitcoin(3,3,50,'cur')">here</a> to show.
+		    Show a quick-supply currency that will reach the ~maximum coin supply of 297.65 coins in 1 minute and 5 seconds. Click <a href="javascript:void(0)" onclick="sbtc(3,3,50,'cur')">here</a> to show.
 		</li>
 		<br>
 		<li>
-		    Show Bitcoin formal coin supply. Click <a href="javascript:void(0)" onclick="simul_bitcoin(600,210000,50,'btc')">here</a> to show.
+		    Show Bitcoin formal coin supply. Click <a href="javascript:void(0)" onclick="sbtc(600,210000,50,'btc')">here</a> to show.
 		</li>
 		<br>
 		<li>
-		    What would happen if Bitcoin block time was 5 minutes instead of 10 minutes ? Click <a href="javascript:void(0)" onclick="simul_bitcoin(300,210000,50,'btc')">here</a> to show.
+		    What would happen if Bitcoin block time was 5 minutes instead of 10 minutes ? Click <a href="javascript:void(0)" onclick="sbtc(300,210000,50,'btc')">here</a> to show.
 		</li>
 		<br>
 		<li>
-		    What would happen if Bitcoin difficulty increased every 315,000 blocks instead of 210,000 blocks ? Click <a href="javascript:void(0)" onclick="simul_bitcoin(600,315000,50,'btc')">here</a> to show.
+		    What would happen if Bitcoin difficulty increased every 315,000 blocks instead of 210,000 blocks ? Click <a href="javascript:void(0)" onclick="sbtc(600,315000,50,'btc')">here</a> to show.
 		</li>
 		<br>
 		<li>
-		    What would happen if Bitcoin inital reward was 25 coins instead of 50 coins ? Click <a href="javascript:void(0)" onclick="simul_bitcoin(600,210000,25,'btc')">here</a> to show.
+		    What would happen if Bitcoin inital reward was 25 coins instead of 50 coins ? Click <a href="javascript:void(0)" onclick="sbtc(600,210000,25,'btc')">here</a> to show.
 		</li>
 	    </ol>
             Results are <b>formal values</b>; they don't necessary match the values in the Bitcoin network, see <a target=_blank href=https://en.bitcoin.it/wiki/Controlled_supply#Currency_with_Finite_Supply>here</a> for more info.
@@ -160,26 +160,23 @@
 	    var cTS=tsm/1000;
 	    BLOCKCHAIN_START_TIME=cTS;
 	}
-	clearInterval(uTimer);
-	draw_graph();
-	uTimer=setInterval('update_timer()',1000);
+	startLoop();
     }
 
     function update_timer() {
 	if(BLOCKMAP_ARRAY.length==curBlock+1) {
-	    clearInterval(uTimer);
+	    if(uTimer!=null) {
+		clearInterval(uTimer);
+	    }	    
 	    document.getElementById('next_time_div').innerHTML=' &nbsp; All coins are mined &nbsp; ';
 	    return;
 	}
 	var tStampInMs = window.performance && window.performance.now && window.performance.timing && window.performance.timing.navigationStart ? window.performance.now()+window.performance.timing.navigationStart : Date.now();
 	var curTStamp=tStampInMs/1000;
 	var s=numberWithCommas(parseInt(BLOCKMAP_ARRAY[curBlock+1].startAt-curTStamp));
-	//if(s==-1) {
 	if(s<0) {
 	    document.getElementById('next_time_div').innerHTML=' &nbsp; Updating Graph ...';
-	    //clearInterval(uTimer);
 	    draw_graph();
-	    //uTimer=setInterval('update_timer()',1000);
 	}
 	else {
 	    var newsize=parseInt(document.getElementById('next_time').clientWidth*(BLOCK_INTERVAL_SECS-s)/BLOCK_INTERVAL_SECS);
@@ -523,7 +520,7 @@
 	}
     }
 
-    function simul_bitcoin(bt,bi,ir,bd) {
+    function sbtc(bt,bi,ir,bd) {
 	window.scrollTo(0,0); 
 	document.getElementById('block_time').value=bt;
 	document.getElementById('block_inc').value=bi;
@@ -531,7 +528,49 @@
 	document.getElementById('boot_date').value=bd;
 	startcalc();
     }
+    
+    function startLoopDelay() {
+	if(uTimer!=null) {
+	    clearInterval(uTimer);
+	}
+	draw_graph();
+	uTimer=setInterval('update_timer()',1000);
+    }
+    
+    function startLoop() {    
+	ctx.clearRect(0,0,c.width,c.height);
+	ctx.beginPath();
+	ctx.fillStyle = colors_background;
+	ctx.fillRect(0,0,c.width,c.height); 
+	ctx.strokeStyle = colors_line;
+	ctx.fillStyle = colors_text;
+	ctx.font = "bold 32pt Arial";
+	ctx.fillText("Crypto-Currency Supply Designer",CANVAS_WIDTH/2-350,180);
+	ctx.font = "bold 17pt Arial";
+	ctx.fillText("Rendering ... Please wait ...",CANVAS_WIDTH/2-350,280);    
+	var t='';
+	if(BLOCK_INTERVAL_SECS>=60) {
+	    if((BLOCK_INTERVAL_SECS/60) == 1) {
+	t="Block time: 1 minute";
+	    }
+	    else {
+	t="Block time: "+parseInt(BLOCK_INTERVAL_SECS/60)+' minutes'
+	    }
+	}
+	else {
+	    t="Block time: "+BLOCK_INTERVAL_SECS+' seconds' 
+	}
+	t+=', Difficulty increases every: '+numberWithCommas(CHANGE_DIFF_EVERY_BLOCK)+' blocks'
+	t+=', Initial reward: '+numberWithCommas(AWARD_INIT)+' Ƀ'
+	t+=', Network bootstrap time: '+timeConverter(BLOCKCHAIN_START_TIME,'time');
+	ctx.font = "bold 8pt Arial";
+	ctx.fillText(t,CANVAS_WIDTH/2-350,320);
+	ctx.closePath();
+	ctx.stroke();
+	setTimeout("startLoopDelay()",1);
+    }
 
+    var uTimer=null;
     var BLOCKCHAIN_START_TIME=1231006505;
     var BLOCK_INTERVAL_SECS=600
     var CHANGE_DIFF_EVERY_BLOCK=210000
@@ -572,8 +611,7 @@
     c.style.border = "1px solid #000000";
     var ctx=c.getContext("2d");
     document.getElementById('gdiv').appendChild(c);
-    window.onload=draw_graph;
-    var uTimer=setInterval('update_timer()',1000);
+    window.onload=startLoop;
 </script>
 </boody>	
 </html>
